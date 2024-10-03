@@ -1,4 +1,5 @@
 const navElement = document.querySelector("nav");
+const footerElement = document.querySelector("footer");
 
 const fetchNav = async () => {
   try {
@@ -11,4 +12,15 @@ const fetchNav = async () => {
   }
 };
 
+const fetchFooter = async () => {
+  try {
+    const res = await fetch("../pages/footer.html");
+    const template = await res.text();
+    footerElement.innerHTML = template;
+  } catch (err) {
+    console.log(err);       
+  }
+};
+
+fetchFooter();
 fetchNav();
