@@ -34,11 +34,11 @@
   </head>
   <body>
     <div class="topnav">
-      <a href="#">Experience</a>
-      <a href="#">Studies</a>
-      <a href="#">Projects</a>
-      <a href="#" style="float:right">ES</a>
-      <a href="#" style="float:right">EN</a>
+      <a href="#" data-i18n="experience"></a>
+      <a href="#" data-i18n="studies"></a>
+      <a href="#" data-i18n="projects"></a>
+      <a href="#" style="float:right" onclick="changeLanguage('sp')">ES</a>
+      <a href="#" style="float:right" onclick="changeLanguage('en')">EN</a>
     </div>
     <header>
       <ul>
@@ -49,5 +49,6 @@
     <nav></nav>
     <footer></footer>
     <script src="/scripts/loader.js"></script>
+    <script src="/scripts/langSelector.js"></script>
   </body>
 </html>
