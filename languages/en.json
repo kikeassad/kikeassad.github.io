@@ -1,5 +1,19 @@
 {
   "experience": "Experience",
   "projects": "Projects",
-  "studies": "Studies"
+  "studies": "Studies",
+  "work_experience": {
+    "current": {
+      "company": "Tata Consultancy Services",
+      "position": "Developer",
+      "date_start": "January-2023",
+      "date_end": "Present",
+      "location": "Remote",
+      "description": ["Working as a contractor in the banking and finance area.",
+                      "Develop cloud solutions for the automation of the mortgage process.",
+                      "Create IaaS with Terraform, code RESTful applications, and monitor the calls and errors of the endpoint with tools like DataDog and Kibana.",
+                      "Sync-up with the team using Agile methodologies(Scrum, Kanban), and collaborate using Gitlab.",
+                      "Delivery Owner for the Real Estate TCS personnel. I oversee the performance and compliance of 20 fellow developers."]
+    }
+  }
 }
