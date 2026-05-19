@@ -164,3 +164,34 @@ a:active {
     width: 90%; 
     height: 10px;
 } 
+.job-card {
+  background-color: #fdffe2;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.job-company {
+  color: #1a2130;
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.job-position {
+  color: #5a72a0;
+  font-weight: bold;
+}
+
+.job-dates,
+.job-location {
+  color: #708bb5;
+  font-size: 0.9rem;
+}
+
+.job-description {
+  margin-top: 10px;
+  padding-left: 20px;
+  color: #1a2130;
+  line-height: 1.7;
+}

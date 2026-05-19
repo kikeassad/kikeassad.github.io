@@ -1,5 +1,21 @@
 {
   "experience": "Experiencia",
   "projects": "Proyectos",
-  "studies": "Estudios"
+  "studies": "Estudios",
+  "work_experience": {
+    "TCS": {
+      "company": "Tata Consultancy Services",
+      "position": "Desarrollador",
+      "date_start": "Enero-2023",
+      "date_end": "Presente",
+      "location": "Remoto",
+      "description": [
+        "Trabajando como contratista en el área bancaria y financiera.",
+        "Desarrollo de soluciones en la nube para la automatización del proceso hipotecario.",
+        "Creación de IaaS con Terraform, desarrollo de aplicaciones RESTful, y monitoreo de llamadas y errores de endpoints con herramientas como DataDog y Kibana.",
+        "Sincronización con el equipo mediante metodologías ágiles (Scrum, Kanban) y colaboración a través de Gitlab.",
+        "Delivery Owner para el personal de TCS en el área de Bienes Raíces. Superviso el desempeño y cumplimiento de 20 desarrolladores."
+      ]
+    }
+  }
 }
