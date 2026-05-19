@@ -4,56 +4,55 @@
     <title>Enrique Assad</title>
     <meta charset="UTF-8" />
     <meta name="author" content="Carlos Enrique Assad Castell" />
-    <meta
-      name="description"
-      content="Personal portfolio and Resume for Carlos Enrique Assad Castell."
-    />
-    <meta
-      name="keywords"
-      content="Carlos Enrique Assad Castell, Resume, Portfolio, Web Development, Enrique Assad,Backend, 
-      Java, Python, Data Science, Springboot, Scikit-learn, Pytorch, Tensorflow"
-    />
+    <meta name="description" content="Personal portfolio and Resume for Carlos Enrique Assad Castell." />
+    <meta name="keywords" content="Carlos Enrique Assad Castell, Resume, Portfolio, Web Development, Enrique Assad, Backend, Java, Python, Data Science, Springboot, Scikit-learn, Pytorch, Tensorflow" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:image" content="/img/logo.png" />
-    <meta
-      property="og:description"
-      content="Personal portfolio and Resume for Carlos Enrique Assad Castell."
-    />
+    <meta property="og:description" content="Personal portfolio and Resume for Carlos Enrique Assad Castell." />
     <meta property="og:title" content="Enrique Assad Portfolio" />
     <link rel="shortcut icon" href="img/logo.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto"
-    />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Lora:wght@400;600&display=swap" />
     <link rel="stylesheet" href="/styles/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-    <base target="_blank" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
   </head>
   <body>
-    <div class="topnav">
-      <a href="#" data-i18n="experience"></a>
-      <a href="#" data-i18n="studies"></a>
-      <a href="#" data-i18n="projects"></a>
-      <a href="#" style="float: right" onclick="changeLanguage('sp')">ES</a>
-      <a href="#" style="float: right" onclick="changeLanguage('en')">EN</a>
+
+    <!-- Language switcher — always visible, fixed top-right -->
+    <div class="lang-switcher">
+      <button onclick="changeLanguage('en')" id="btn-en" class="lang-btn active">EN</button>
+      <button onclick="changeLanguage('sp')" id="btn-sp" class="lang-btn">ES</button>
     </div>
-    <header>
-      Developer
-    </header>
-    <nav></nav>
-    <div id="experience"></div>
-    <section></section>
-    <footer></footer>
+
+    <!-- Layout wrapper -->
+    <div class="layout">
+
+      <!-- LEFT: Sidebar fragment mount point -->
+      <aside id="nav"></aside>
+
+      <!-- RIGHT: Main content -->
+      <main class="main">
+
+        <!-- Top navigation tabs — clicking a tab shows only that section -->
+        <nav class="topnav">
+          <button class="tab-btn active" data-tab="experience" data-i18n="experience"></button>
+          <button class="tab-btn"        data-tab="studies"    data-i18n="studies"></button>
+          <button class="tab-btn"        data-tab="projects"   data-i18n="projects"></button>
+        </nav>
+
+        <!-- Scrollable panel area — only this div scrolls, not the whole page.
+             That's what keeps the sidenav and topnav always in view. -->
+        <div class="panels">
+          <section id="experience" class="content-section tab-active"></section>
+          <section id="studies"    class="content-section"></section>
+          <section id="projects"   class="content-section"></section>
+        </div>
+
+      </main>
+    </div>
+
+    <!-- Footer fragment mount point -->
+    <footer id="footer"></footer>
+
     <script type="module" src="/scripts/loader.js"></script>
   </body>
 </html>
-
-<!-- 
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Document_and_website_structure
-      https://medium.com/@nohanabil/building-a-multilingual-static-website-a-step-by-step-guide-7af238cc8505#id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImE1MGY2ZTcwZWY0YjU0OGE1ZmQ5MTQyZWVjZDFmYjhmNTRkY2U5ZWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMTYyOTYwMzU4MzQtazFrNnFlMDYwczJ0cDJhMmphbTRsamRjbXMwMHN0dGcuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDc4NTk2NDczMTc3NDEyNTQxMTQiLCJlbWFpbCI6ImNhcmxvc2xvYXJ0QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYmYiOjE3Mjg5NjE2NDYsIm5hbWUiOiJDYXJsb3MgRW5yaXF1ZSBBc3NhZCBDYXN0ZWxsIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0tTZVVUTFpUTHZ0S21Ta2x3ZU9hNTd0R01mdkdJWGZCaHgzU0xWT2ZiVC1GQk9EZz1zOTYtYyIsImdpdmVuX25hbWUiOiJDYXJsb3MgRW5yaXF1ZSIsImZhbWlseV9uYW1lIjoiQXNzYWQgQ2FzdGVsbCIsImlhdCI6MTcyODk2MTk0NiwiZXhwIjoxNzI4OTY1NTQ2LCJqdGkiOiI1ZTFkOTE4N2NhMTJhZTJkM2U1ZGFjZTcwNDg2ZTNmYjM1NWEyYjY4In0.kls0R96Bdqto55Ql3x9JFfy6Ae4WF5ZJeVvSrhv_VSV7-5dSXaCHKPWKF9WWNSNi7MWoZ-NtkKKZVmFxyCz4icR5YV4IdDnodmjPFWLmHjB52UH4VDrezuxRHJMlJFUB771zM2bUVYixXr6grOYaMF4sbvvgKaC_C9ugCf44RhbSAkJpgHp2Cs3v6Z5_Ao5ttcPU6VJ-WRAVUKJrztEJyESoWreZJ_ntNZRgxCn2v3P5j1Zz510t8E4FZidAFniYZbzRzFAm4IqVpRPaev9w-52Gnb13P3-IaVc4HBW2IkPky5uhaXxK-t38-QoI3MMjG_vW_N3rj49-MczvI9CQNQ
-      https://kikeassad.github.io/
-      http://127.0.0.1:3000/index.html
-  -->

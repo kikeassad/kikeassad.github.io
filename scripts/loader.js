@@ -1,57 +1,74 @@
-import { updateContent } from "./langSelector.js";
+import { updateContent, getStoredLang, fetchLangData } from "./langSelector.js";
 
-// Cada entrada mapea el ID del elemento en el DOM con el archivo HTML a cargar.
-// Si necesitas añadir una nueva sección (skills, certifications...), solo agregas
-// una entrada aquí. No tienes que tocar ninguna otra parte del código.
+// Each entry maps a DOM element ID to its corresponding HTML fragment file.
+// Adding a new section only requires adding one entry here — nothing else changes.
 const fragments = [
   { id: "nav",        file: "nav"        },
   { id: "footer",     file: "footer"     },
   { id: "experience", file: "experience" },
+  { id: "studies",    file: "studies"    },
+  { id: "projects",   file: "projects"   },
 ];
 
-// Función que carga UN solo fragmento y lo inserta en su elemento del DOM.
-// La separamos para que sea fácil de leer y de testear por separado.
+// Loads ONE fragment and injects it into its DOM mount point.
+// We check for the element first to fail fast — no point making a network
+// request if the placeholder doesn't exist in the page.
 const loadFragment = async ({ id, file }) => {
-  // Obtenemos el elemento primero. Si no existe en el DOM, abortamos
-  // temprano en lugar de hacer una petición de red innecesaria.
   const element = document.getElementById(id);
   if (!element) {
-    console.warn(`Elemento con id "${id}" no encontrado en el DOM.`);
+    console.warn(`Element with id "${id}" not found in the DOM.`);
     return;
   }
 
-  // Hacemos la petición al archivo HTML del fragmento
   const response = await fetch(`/pages/${file}.html`);
-
-  // Es buena práctica verificar que la respuesta fue exitosa (status 200).
-  // Sin esto, un 404 silencioso podría dejarte con contenido vacío sin saber por qué.
   if (!response.ok) {
-    console.error(`No se pudo cargar el fragmento "${file}.html": ${response.status}`);
+    console.error(`Could not load fragment "${file}.html": ${response.status}`);
     return;
   }
 
   element.innerHTML = await response.text();
 };
 
-// Función principal que orquesta la carga de todos los fragmentos.
-// Promise.all() recibe un array de promesas y las ejecuta en paralelo.
-// Solo continúa (el .then o el await) cuando TODAS han terminado.
+// Orchestrates loading all fragments in parallel, then applies translations.
+// Promise.all() is key: it guarantees every fragment is in the DOM before
+// updateContent() runs, eliminating any race condition between loading and rendering.
 const loadAllFragments = async () => {
   try {
     await Promise.all(fragments.map(loadFragment));
 
-    // Este es el momento clave: todos los fragmentos ya están en el DOM,
-    // así que ahora es seguro aplicar las traducciones. Si lo hicieras antes,
-    // los elementos con data-i18n podrían no existir todavía.
-    const lang = localStorage.getItem("language") || "en";
-    const response = await fetch(`/languages/${lang}.json`);
-    const langData = await response.json();
+    // All fragments are now mounted — safe to apply translations.
+    const lang = getStoredLang();
+    const langData = await fetchLangData(lang);
     updateContent(langData);
 
   } catch (err) {
-    // Si cualquiera de las promesas falla, el catch lo captura aquí.
-    console.error("Error cargando los fragmentos:", err);
+    console.error("Error loading fragments:", err);
   }
 };
 
 loadAllFragments();
+
+
+// ─── Tab switching ────────────────────────────────────────────────────────────
+// Each .tab-btn has a data-tab attribute matching the id of its target section.
+// Clicking a button removes .tab-active from everything and adds it only to the
+// matching section — so all other panels disappear and only the chosen one shows.
+// We also toggle .active on the buttons so the CSS can highlight the current tab.
+//
+// We attach this listener to <nav class="topnav"> rather than individual buttons,
+// which is called "event delegation": one listener handles all current and future
+// buttons instead of re-binding every time the language changes.
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest(".tab-btn");
+  if (!btn) return;
+
+  const targetId = btn.dataset.tab;
+
+  // Deactivate all tabs and panels...
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".content-section").forEach(s => s.classList.remove("tab-active"));
+
+  // ...then activate only the selected ones.
+  btn.classList.add("active");
+  document.getElementById(targetId)?.classList.add("tab-active");
+});

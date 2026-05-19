@@ -1,95 +1,166 @@
-// ─── Capa de persistencia ────────────────────────────────────────────────────
-// Estas dos funciones tienen una sola responsabilidad: leer y escribir
-// el idioma preferido del usuario en localStorage. Nada más.
+// ─── Persistence layer ───────────────────────────────────────────────────────
+// Single responsibility: read/write the user's language preference from localStorage.
 
 export const getStoredLang = () => localStorage.getItem("language") || "en";
-
 export const storeLang = (lang) => localStorage.setItem("language", lang);
 
 
-// ─── Capa de datos ───────────────────────────────────────────────────────────
-// Esta función solo sabe cómo ir a buscar los datos. No sabe nada del DOM
-// ni de localStorage. Esa separación es el principio de Single Responsibility.
+// ─── Data layer ──────────────────────────────────────────────────────────────
+// Only knows how to fetch data. Completely unaware of the DOM or localStorage.
 
 export const fetchLangData = async (lang) => {
   const response = await fetch(`/languages/${lang}.json`);
-  if (!response.ok) throw new Error(`No se encontró el archivo de idioma: ${lang}.json`);
+  if (!response.ok) throw new Error(`Language file not found: ${lang}.json`);
   return response.json();
 };
 
 
-// ─── Capa de renderizado ─────────────────────────────────────────────────────
-// Estas funciones solo saben cómo transformar datos en HTML y meterlos al DOM.
+// ─── Rendering layer ─────────────────────────────────────────────────────────
+// Each function below knows how to turn one data shape into HTML.
+// Keeping them separate means changing one section never risks breaking another.
 
-// Construye el HTML de un trabajo individual a partir de su objeto de datos.
-// Separarlo en su propia función nos permite reutilizarlo o modificarlo
-// sin tocar la lógica de iteración.
+// Builds the HTML for a single work experience card.
 const renderJob = (job) => {
-  const descriptionItems = job.description
-    .map(item => `<li>${item}</li>`)
-    .join("");
-
+  const items = job.description.map(item => `<li>${item}</li>`).join("");
   return `
     <div class="job-card">
-      <h3 class="job-company">${job.company}</h3>
+      <div class="job-header">
+        <h3 class="job-company">${job.company}</h3>
+        <span class="job-dates">${job.date_start} — ${job.date_end}</span>
+      </div>
       <p class="job-position">${job.position}</p>
-      <p class="job-dates">${job.date_start} — ${job.date_end}</p>
-      <p class="job-location">${job.location}</p>
-      <ul class="job-description">${descriptionItems}</ul>
+      <p class="job-location"><i class="fa fa-location-dot"></i> ${job.location}</p>
+      <ul class="job-description">${items}</ul>
     </div>
   `;
 };
 
-// Itera sobre todos los trabajos del JSON y los monta en el contenedor.
-// Object.values() nos desacopla de los nombres de llave (TCS, etc.),
-// así que añadir un trabajo nuevo al JSON es suficiente — no hay que
-// tocar ningún HTML ni JS.
+// Iterates work_experience and mounts all job cards.
+// Using Object.values() means adding a new job to the JSON is all you ever need to do.
 const renderWorkExperience = (langData) => {
   const container = document.getElementById("work-experience-list");
   if (!container || !langData.work_experience) return;
-
   container.innerHTML = Object.values(langData.work_experience)
     .map(job => renderJob(job))
     .join("");
 };
 
-// Función principal de renderizado. Recibe el objeto de idioma completo
-// y actualiza todo el contenido del DOM en dos pasos:
-// 1) Los elementos estáticos con data-i18n (títulos de sección, nav, etc.)
-// 2) Las secciones dinámicas que requieren generar HTML (experiencia laboral)
-export const updateContent = (langData) => {
-  // Solo procesamos llaves cuyo valor es string para evitar que un objeto
-  // como work_experience aparezca como "[object Object]" en pantalla.
-  document.querySelectorAll("[data-i18n]").forEach((el) => {
-    const value = langData[el.getAttribute("data-i18n")];
-    if (typeof value === "string") el.innerHTML = value;
-  });
 
-  renderWorkExperience(langData);
+// Builds the HTML for a single education entry.
+const renderDegree = (degree) => `
+  <div class="edu-card">
+    <div class="edu-header">
+      <h3 class="edu-institution">${degree.institution}</h3>
+      <span class="edu-dates">${degree.date_start} — ${degree.date_end}</span>
+    </div>
+    <p class="edu-degree">${degree.degree}</p>
+    ${degree.department ? `<p class="edu-department">${degree.department}</p>` : ""}
+    <p class="edu-gpa">${degree.gpa}</p>
+  </div>
+`;
+
+const renderEducation = (langData) => {
+  const container = document.getElementById("education-list");
+  if (!container || !langData.education) return;
+  container.innerHTML = Object.values(langData.education)
+    .map(degree => renderDegree(degree))
+    .join("");
 };
 
 
-// ─── Cambio de idioma interactivo ────────────────────────────────────────────
-// Esta es la función que llaman los botones EN / ES en el HTML.
-// Ya no hace location.reload() — simplemente actualiza el estado y
-// vuelve a pintar el contenido, que es todo lo que necesitábamos.
+// Builds the HTML for a single certification.
+const renderCertification = (cert) => {
+  // Only render a link if one was provided in the JSON.
+  const linkHtml = cert.link
+    ? `<a href="${cert.link}" target="_blank" class="cert-link">
+         <i class="fa fa-arrow-up-right-from-square"></i> View credential
+       </a>`
+    : cert.credential
+      ? `<span class="cert-credential">ID: ${cert.credential}</span>`
+      : "";
+
+  return `
+    <div class="cert-card">
+      <div class="cert-header">
+        <h3 class="cert-name">${cert.name}</h3>
+        <span class="cert-date">${cert.date}</span>
+      </div>
+      <p class="cert-issuer">${cert.issuer}</p>
+      ${linkHtml}
+    </div>
+  `;
+};
+
+const renderCertifications = (langData) => {
+  const container = document.getElementById("certifications-list");
+  if (!container || !langData.certifications_list) return;
+  container.innerHTML = Object.values(langData.certifications_list)
+    .map(cert => renderCertification(cert))
+    .join("");
+};
+
+
+// Builds the HTML for a single project card.
+const renderProject = (project) => {
+  const tags = project.tags
+    .map(tag => `<span class="project-tag">${tag}</span>`)
+    .join("");
+
+  return `
+    <div class="project-card">
+      <h3 class="project-title">${project.title}</h3>
+      <p class="project-description">${project.description}</p>
+      <div class="project-tags">${tags}</div>
+    </div>
+  `;
+};
+
+const renderProjects = (langData) => {
+  const container = document.getElementById("projects-list");
+  if (!container || !langData.projects_list) return;
+  container.innerHTML = Object.values(langData.projects_list)
+    .map(project => renderProject(project))
+    .join("");
+};
+
+
+// ─── Main content updater ────────────────────────────────────────────────────
+// Receives the full language object and updates the entire DOM in two passes:
+// 1) Static elements tagged with data-i18n (section titles, nav labels, etc.)
+// 2) Dynamic sections that need HTML generation (jobs, education, etc.)
+
+export const updateContent = (langData) => {
+  // Only process keys whose value is a plain string — this prevents
+  // an object like work_experience from rendering as "[object Object]".
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const value = langData[el.getAttribute("data-i18n")];
+    if (typeof value === "string") el.textContent = value;
+  });
+
+  renderWorkExperience(langData);
+  renderEducation(langData);
+  renderCertifications(langData);
+  renderProjects(langData);
+
+  // Update the active state of the language buttons
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.id === `btn-${getStoredLang()}`);
+  });
+};
+
+
+// ─── Language change (called by EN/ES buttons) ────────────────────────────────
 export const changeLanguage = async (lang) => {
   storeLang(lang);
   const langData = await fetchLangData(lang);
   updateContent(langData);
 };
 
-// Exponemos changeLanguage en window para que los onclick del HTML
-// puedan encontrarla. Esto es necesario cuando usamos módulos ES6,
-// porque las funciones de un módulo no son globales por defecto.
+// Expose to window so onclick attributes in the HTML can reach it.
+// This is necessary because ES module functions are not global by default.
 window.changeLanguage = changeLanguage;
 
-// ─── NOTA IMPORTANTE ─────────────────────────────────────────────────────────
-// Ya no hay un event listener "DOMContentLoaded" aquí.
-// Antes este archivo se auto-ejecutaba al cargar la página, pero eso
-// causaba una condición de carrera: langSelector corría antes de que
-// loader.js terminara de insertar los fragmentos en el DOM.
-//
-// Ahora loader.js es quien controla el orden. Él espera a que todos los
-// fragmentos estén listos y luego llama a updateContent() directamente.
-// Este archivo solo exporta herramientas; no decide cuándo usarlas.
+// ─── NOTE ─────────────────────────────────────────────────────────────────────
+// There is no "DOMContentLoaded" listener here — loader.js controls the order.
+// It waits for ALL fragments to be in the DOM first, then calls updateContent().
+// This file only exports tools; it does not decide when to use them.

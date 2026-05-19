@@ -2,20 +2,131 @@
   "experience": "Experiencia",
   "projects": "Proyectos",
   "studies": "Estudios",
+  "certifications": "Certificaciones",
+
   "work_experience": {
+    "BlackRock": {
+      "company": "BlackRock",
+      "position": "Desarrollador Full Stack",
+      "date_start": "Marzo 2025",
+      "date_end": "Presente",
+      "location": "Ciudad de México",
+      "description": [
+        "Diseño de aplicaciones desde cero usando gRPC para la comunicación entre front-end y back-end.",
+        "Desarrollo de aplicaciones Front-End con Angular.js, usando eventos para actualizaciones asíncronas en las vistas.",
+        "Desarrollo de aplicaciones full-stack con Django y SQL Server.",
+        "Desarrollo de aplicaciones Back-End en Java 17.",
+        "Creación de flujos de trabajo con Copilot/Windsurf para automatizar tareas repetitivas y mejorar la productividad diaria.",
+        "Coordinación de ceremonias Scrum con el equipo para crear nuevas funcionalidades y tomar ownership de historias y bugs."
+      ]
+    },
     "TCS": {
       "company": "Tata Consultancy Services",
-      "position": "Desarrollador",
-      "date_start": "Enero-2023",
-      "date_end": "Presente",
+      "position": "Desarrollador Full Stack / DevOps",
+      "date_start": "Enero 2023",
+      "date_end": "Marzo 2025",
       "location": "Remoto",
       "description": [
-        "Trabajando como contratista en el área bancaria y financiera.",
-        "Desarrollo de soluciones en la nube para la automatización del proceso hipotecario.",
-        "Creación de IaaS con Terraform, desarrollo de aplicaciones RESTful, y monitoreo de llamadas y errores de endpoints con herramientas como DataDog y Kibana.",
-        "Sincronización con el equipo mediante metodologías ágiles (Scrum, Kanban) y colaboración a través de Gitlab.",
-        "Delivery Owner para el personal de TCS en el área de Bienes Raíces. Superviso el desempeño y cumplimiento de 20 desarrolladores."
+        "Trabajo como contratista en el área bancaria y financiera.",
+        "Desarrollo de APIs RESTful en Java 8 con Spring, JPA, MySQL y Spring Boot.",
+        "Desarrollo de soluciones en la nube para la automatización del proceso hipotecario en JavaScript con Node.js. Creación de IaaS con Terraform y monitoreo de llamadas y errores con DataDog y Kibana.",
+        "Sincronización con el equipo mediante metodologías ágiles (Scrum, Kanban) y colaboración a través de GitLab.",
+        "Liderazgo de un grupo de 10 contratistas como Delivery Owner."
       ]
+    },
+    "SSPC": {
+      "company": "Secretaría de Seguridad y Protección Ciudadana (SSPC)",
+      "position": "Desarrollador Full Stack / Director de Área",
+      "date_start": "Noviembre 2021",
+      "date_end": "Diciembre 2022",
+      "location": "Ciudad de México",
+      "description": [
+        "Diseño y desarrollo de un sistema de certificación de terminación de cursos en Java 8 con Spring Boot, JPA y Thymeleaf, utilizado a nivel nacional para certificar la asistencia a cursos de la SSPC.",
+        "Desarrollo de microservicios en Java 8 con Maven para operaciones CRUD y comunicación entre APIs mediante servicios RESTful.",
+        "Diseño, gestión e implementación de un clúster Kubernetes utilizado para desplegar microservicios consumidos en todo el país por personal policial."
+      ]
+    },
+    "ShiftTechnology": {
+      "company": "Shift-Technology",
+      "position": "Científico de Datos",
+      "date_start": "Junio 2021",
+      "date_end": "Noviembre 2021",
+      "location": "Ciudad de México",
+      "description": [
+        "Desarrollo de una aplicación web RESTful para la tokenización, análisis y procesamiento de recetas médicas, automatizando el proceso de reclamación de seguros.",
+        "Diseño de protocolos para la interacción entre la API del cliente y las soluciones web de SHIFT, permitiendo la reutilización de APIs nativas e integración para la automatización de reclamaciones."
+      ]
+    },
+    "Comtelsat": {
+      "company": "Comtelsat",
+      "position": "Ingeniero DevOps (Freelancer)",
+      "date_start": "Marzo 2021",
+      "date_end": "Agosto 2021",
+      "location": "Ciudad de México",
+      "description": [
+        "Rediseño de un sistema monolítico a arquitectura de microservicios. Los servicios fueron desarrollados en Java 8, contenerizados con Docker y desplegados en un clúster Kubernetes.",
+        "Diseño, gestión e implementación de un clúster Kubernetes con 3 nodos para el despliegue de microservicios."
+      ]
+    }
+  },
+
+  "education": {
+    "masters": {
+      "institution": "CIC-IPN",
+      "degree": "Maestría en Ciencias de la Computación",
+      "department": "Departamento de Redes y Ciencia de Datos",
+      "date_start": "2015",
+      "date_end": "2017",
+      "gpa": "Promedio: 9 / 10"
+    },
+    "bachelors": {
+      "institution": "UPIITA-IPN",
+      "degree": "Ingeniería en Telemática",
+      "department": "",
+      "date_start": "2010",
+      "date_end": "2015",
+      "gpa": "Promedio: 8.5 / 10"
+    }
+  },
+
+  "certifications_list": {
+    "terraform": {
+      "name": "HashiCorp Certificado: Terraform Associate (003)",
+      "issuer": "HashiCorp",
+      "date": "Mayo 2024",
+      "link": "https://www.credly.com/badges/81b8bf92-bf31-41bd-b398-da40b5344a79"
+    },
+    "rl": {
+      "name": "Especialización en Aprendizaje por Refuerzo",
+      "issuer": "Universidad de Alberta",
+      "date": "Marzo 2020",
+      "credential": "RC294BM4LG5H",
+      "link": ""
+    },
+    "tensorflow": {
+      "name": "TensorFlow en Google Cloud",
+      "issuer": "Google Cloud",
+      "date": "Julio 2020",
+      "credential": "39XD9KHADPPW",
+      "link": ""
+    }
+  },
+
+  "projects_list": {
+    "aloha": {
+      "title": "Más allá de los límites de rendimiento de ALOHA con Aprendizaje por Refuerzo",
+      "description": "Proyecto de investigación que explora cómo los agentes de Aprendizaje por Refuerzo pueden superar los límites teóricos de rendimiento del protocolo ALOHA en comunicaciones de red.",
+      "tags": ["Aprendizaje por Refuerzo", "Redes", "Python"]
+    },
+    "meta_ml": {
+      "title": "Meta-Aprendizaje Automático usando Algoritmos de Recomendación",
+      "description": "Aplicación de técnicas de meta-aprendizaje combinadas con algoritmos de recomendación para mejorar la selección de modelos y la generalización en conjuntos de datos heterogéneos.",
+      "tags": ["Meta-Aprendizaje", "Sistemas de Recomendación", "Python"]
+    },
+    "image_seg": {
+      "title": "Segmentación de Imágenes con K-Means y Vecinos Espaciales",
+      "description": "Extensión del algoritmo K-Means clásico para segmentación de imágenes incorporando información de vecindad espacial, mejorando la coherencia de segmentos y la precisión de bordes.",
+      "tags": ["Visión por Computadora", "K-Means", "Python", "NumPy"]
     }
   }
 }

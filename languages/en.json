@@ -2,18 +2,131 @@
   "experience": "Experience",
   "projects": "Projects",
   "studies": "Studies",
+  "certifications": "Certifications",
+
   "work_experience": {
+    "BlackRock": {
+      "company": "BlackRock",
+      "position": "Full Stack Developer",
+      "date_start": "March 2025",
+      "date_end": "Present",
+      "location": "Mexico City",
+      "description": [
+        "Design applications from the ground up using gRPC to communicate between front-end and back-end.",
+        "Develop Front-End applications using Angular.js, leveraging events to make asynchronous updates to the views.",
+        "Develop full-stack applications with Django and SQL Server.",
+        "Develop Back-End applications in Java 17.",
+        "Create workflows with Copilot/Windsurf to automate repetitive tasks and improve everyday productivity.",
+        "Coordinate Scrum ceremonies with the team to create new features and take ownership of stories and bugs."
+      ]
+    },
     "TCS": {
       "company": "Tata Consultancy Services",
-      "position": "Developer",
-      "date_start": "January-2023",
-      "date_end": "Present",
+      "position": "Full Stack Developer / DevOps",
+      "date_start": "January 2023",
+      "date_end": "March 2025",
       "location": "Remote",
-      "description": ["Working as a contractor in the banking and finance area.",
-                      "Develop cloud solutions for the automation of the mortgage process.",
-                      "Create IaaS with Terraform, code RESTful applications, and monitor the calls and errors of the endpoint with tools like DataDog and Kibana.",
-                      "Sync-up with the team using Agile methodologies(Scrum, Kanban), and collaborate using Gitlab.",
-                      "Delivery Owner for the Real Estate TCS personnel. I oversee the performance and compliance of 20 fellow developers."]
+      "description": [
+        "Worked as a contractor in the banking and finance area.",
+        "Developed RESTful APIs in Java 8 with Spring, JPA, MySQL, and Spring Boot.",
+        "Developed cloud solutions for the automation of the mortgage process in JavaScript with Node.js. Created IaaS with Terraform and monitored endpoint calls and errors using DataDog and Kibana.",
+        "Synced up with the team using Agile methodologies (Scrum, Kanban) and collaborated using GitLab.",
+        "Led a group of 10 contractors as a Delivery Owner."
+      ]
+    },
+    "SSPC": {
+      "company": "Ministry of National Security (SSPC)",
+      "position": "Full Stack Developer / Area Director",
+      "date_start": "November 2021",
+      "date_end": "December 2022",
+      "location": "Mexico City",
+      "description": [
+        "Designed and developed a certification system for course completion in Java 8 with Spring Boot, JPA, and Thymeleaf, used nationwide to certify SSPC course attendance.",
+        "Developed several microservices in Java 8 with Maven for CRUD operations and inter-API communication via RESTful services.",
+        "Designed, managed, and implemented a Kubernetes cluster used to deploy microservices consumed across the country by law enforcement personnel."
+      ]
+    },
+    "ShiftTechnology": {
+      "company": "Shift-Technology",
+      "position": "Data Scientist",
+      "date_start": "June 2021",
+      "date_end": "November 2021",
+      "location": "Mexico City",
+      "description": [
+        "Developed a web RESTful application for the tokenization, analysis, and processing of medical prescriptions to automate the insurance claim process.",
+        "Designed protocols for interactions between the client's API and SHIFT web solutions, enabling reuse of native APIs and seamless integration for claim automation."
+      ]
+    },
+    "Comtelsat": {
+      "company": "Comtelsat",
+      "position": "DevOps Engineer (Freelancer)",
+      "date_start": "March 2021",
+      "date_end": "August 2021",
+      "location": "Mexico City",
+      "description": [
+        "Redesigned a monolithic system into a microservices architecture. Services were developed in Java 8, containerized with Docker, and deployed on a Kubernetes cluster.",
+        "Designed, managed, and implemented a Kubernetes cluster with 3 nodes for microservices deployment."
+      ]
+    }
+  },
+
+  "education": {
+    "masters": {
+      "institution": "CIC-IPN",
+      "degree": "Master's in Computer Science",
+      "department": "Department of Networks and Data Science",
+      "date_start": "2015",
+      "date_end": "2017",
+      "gpa": "GPA: 9 / 10"
+    },
+    "bachelors": {
+      "institution": "UPIITA-IPN",
+      "degree": "Bachelor of Telematics Engineering",
+      "department": "",
+      "date_start": "2010",
+      "date_end": "2015",
+      "gpa": "GPA: 8.5 / 10"
+    }
+  },
+
+  "certifications_list": {
+    "terraform": {
+      "name": "HashiCorp Certified: Terraform Associate (003)",
+      "issuer": "HashiCorp",
+      "date": "May 2024",
+      "link": "https://www.credly.com/badges/81b8bf92-bf31-41bd-b398-da40b5344a79"
+    },
+    "rl": {
+      "name": "Reinforcement Learning Specialization",
+      "issuer": "University of Alberta",
+      "date": "March 2020",
+      "credential": "RC294BM4LG5H",
+      "link": ""
+    },
+    "tensorflow": {
+      "name": "TensorFlow on Google Cloud",
+      "issuer": "Google Cloud",
+      "date": "July 2020",
+      "credential": "39XD9KHADPPW",
+      "link": ""
+    }
+  },
+
+  "projects_list": {
+    "aloha": {
+      "title": "Beyond the Limits of ALOHA Throughput with Reinforcement Learning",
+      "description": "Research project exploring how Reinforcement Learning agents can push the theoretical throughput boundaries of the ALOHA protocol in network communications.",
+      "tags": ["Reinforcement Learning", "Networking", "Python"]
+    },
+    "meta_ml": {
+      "title": "Meta-Machine Learning using Recommending Algorithms",
+      "description": "Applied meta-learning techniques combined with recommendation algorithms to improve model selection and generalization across heterogeneous datasets.",
+      "tags": ["Meta-Learning", "Recommender Systems", "Python"]
+    },
+    "image_seg": {
+      "title": "Image Segmentation using K-Means with Spatial Neighbours",
+      "description": "Extended classic K-Means clustering for image segmentation by incorporating spatial neighbourhood information, improving segment coherence and boundary accuracy.",
+      "tags": ["Computer Vision", "K-Means", "Python", "NumPy"]
     }
   }
 }
