@@ -1,3 +1,5 @@
+import { updateContent } from "./langSelector.js";
+
 // Cada entrada mapea el ID del elemento en el DOM con el archivo HTML a cargar.
 // Si necesitas añadir una nueva sección (skills, certifications...), solo agregas
 // una entrada aquí. No tienes que tocar ninguna otra parte del código.
