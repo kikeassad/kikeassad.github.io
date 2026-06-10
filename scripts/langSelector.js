@@ -9,7 +9,7 @@ export const storeLang = (lang) => localStorage.setItem("language", lang);
 // Only knows how to fetch data. Completely unaware of the DOM or localStorage.
 
 export const fetchLangData = async (lang) => {
-  const response = await fetch(`/languages/${lang}.json`);
+  const response = await fetch(`languages/${lang}.json`);
   if (!response.ok) throw new Error(`Language file not found: ${lang}.json`);
   return response.json();
 };

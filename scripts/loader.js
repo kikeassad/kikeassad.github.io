@@ -20,7 +20,7 @@ const loadFragment = async ({ id, file }) => {
     return;
   }
 
-  const response = await fetch(`/pages/${file}.html`);
+  const response = await fetch(`pages/${file}.html`);
   if (!response.ok) {
     console.error(`Could not load fragment "${file}.html": ${response.status}`);
     return;
@@ -65,10 +65,14 @@ document.addEventListener("click", (e) => {
   const targetId = btn.dataset.tab;
 
   // Deactivate all tabs and panels...
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b => {
+    b.classList.remove("active");
+    b.setAttribute("aria-selected", "false");
+  });
   document.querySelectorAll(".content-section").forEach(s => s.classList.remove("tab-active"));
 
   // ...then activate only the selected ones.
   btn.classList.add("active");
+  btn.setAttribute("aria-selected", "true");
   document.getElementById(targetId)?.classList.add("tab-active");
 });

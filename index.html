@@ -27,31 +27,51 @@
     <div class="layout">
 
       <!-- LEFT: Sidebar fragment mount point -->
-      <aside id="nav"></aside>
+      <aside id="nav">
+        <div style="padding: 30px; text-align: center; color: var(--navy); font-family: 'Space Mono', monospace; font-size: 0.85rem; letter-spacing: 0.05em; opacity: 0.7;">
+          <i class="fa fa-spinner fa-spin"></i> Loading...
+        </div>
+      </aside>
 
       <!-- RIGHT: Main content -->
       <main class="main">
 
         <!-- Top navigation tabs — clicking a tab shows only that section -->
-        <nav class="topnav">
-          <button class="tab-btn active" data-tab="experience" data-i18n="experience"></button>
-          <button class="tab-btn"        data-tab="studies"    data-i18n="studies"></button>
-          <button class="tab-btn"        data-tab="projects"   data-i18n="projects"></button>
+        <nav class="topnav" role="tablist">
+          <button id="tab-experience" class="tab-btn active" data-tab="experience" data-i18n="experience" role="tab" aria-selected="true" aria-controls="experience">Experience</button>
+          <button id="tab-studies"    class="tab-btn"        data-tab="studies"    data-i18n="studies"    role="tab" aria-selected="false" aria-controls="studies">Studies</button>
+          <button id="tab-projects"   class="tab-btn"        data-tab="projects"   data-i18n="projects"   role="tab" aria-selected="false" aria-controls="projects">Projects</button>
         </nav>
 
         <!-- Scrollable panel area — only this div scrolls, not the whole page.
              That's what keeps the sidenav and topnav always in view. -->
         <div class="panels">
-          <section id="experience" class="content-section tab-active"></section>
-          <section id="studies"    class="content-section"></section>
-          <section id="projects"   class="content-section"></section>
+          <section id="experience" class="content-section tab-active" role="tabpanel" aria-labelledby="tab-experience">
+            <div style="padding: 20px 0; color: var(--navy); font-family: 'Space Mono', monospace; font-size: 0.85rem; opacity: 0.7;">
+              <i class="fa fa-spinner fa-spin"></i> Loading experience...
+            </div>
+          </section>
+          <section id="studies"    class="content-section"            role="tabpanel" aria-labelledby="tab-studies">
+            <div style="padding: 20px 0; color: var(--navy); font-family: 'Space Mono', monospace; font-size: 0.85rem; opacity: 0.7;">
+              <i class="fa fa-spinner fa-spin"></i> Loading studies...
+            </div>
+          </section>
+          <section id="projects"   class="content-section"            role="tabpanel" aria-labelledby="tab-projects">
+            <div style="padding: 20px 0; color: var(--navy); font-family: 'Space Mono', monospace; font-size: 0.85rem; opacity: 0.7;">
+              <i class="fa fa-spinner fa-spin"></i> Loading projects...
+            </div>
+          </section>
         </div>
 
       </main>
     </div>
 
     <!-- Footer fragment mount point -->
-    <footer id="footer"></footer>
+    <footer id="footer">
+      <div style="padding: 20px; text-align: center; color: var(--navy); font-family: 'Space Mono', monospace; font-size: 0.8rem; opacity: 0.7;">
+        Loading footer...
+      </div>
+    </footer>
 
     <script type="module" src="/scripts/loader.js"></script>
   </body>
