@@ -143,15 +143,11 @@ body {
   transition: width 0.6s ease;
 }
 
-
-/* ─── Language switcher (fixed top-right) ────────────────────────────────────── */
+/* ─── Language switcher (nested in topnav) ───────────────────────────────────── */
 .lang-switcher {
-  position: fixed;
-  top: 16px;
-  right: 20px;
-  z-index: 100;
   display: flex;
   gap: 6px;
+  margin-bottom: 8px;
 }
 
 .lang-btn {
@@ -194,12 +190,18 @@ body {
 /* ─── Top navigation tabs ────────────────────────────────────────────────────── */
 .topnav {
   display: flex;
-  gap: 4px;
+  justify-content: space-between;
+  align-items: flex-end;
   flex-shrink: 0;              /* Never compress — always full height */
   padding: 16px 32px 0;
   border-bottom: 2px solid var(--mid-blue);
   background-color: var(--bg);
   z-index: 5;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 4px;
 }
 
 /* ─── Scrollable panel area ─────────────────────────────────────────────────── */
@@ -515,23 +517,25 @@ body {
 
 /* ─── Footer ─────────────────────────────────────────────────────────────────── */
 .footer {
-  background-color: var(--navy);
-  color: var(--pale);
+  background-color: transparent;
+  color: var(--navy);
   text-align: center;
-  padding: 24px 20px;
+  padding: 16px 20px;
+  flex-shrink: 0;
+  border-top: 1px solid rgba(90, 114, 160, 0.15);
 }
 
 .footer p {
   font-family: "Space Mono", monospace;
-  font-size: 0.78rem;
-  margin-bottom: 12px;
-  color: var(--mid-blue);
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+  color: var(--blue);
   letter-spacing: 0.05em;
 }
 
 .footer a {
-  font-size: 1.3rem;
-  color: var(--pale);
+  font-size: 1.25rem;
+  color: var(--navy);
   margin: 0 10px;
   text-decoration: none;
   transition: color 0.2s, transform 0.2s;
@@ -540,7 +544,7 @@ body {
 
 .footer a:hover {
   color: var(--light-blue);
-  transform: translateY(-3px);
+  transform: translateY(-2px);
 }
 
 
@@ -561,11 +565,6 @@ body {
 
   .main {
     padding: 0 16px 32px;
-  }
-
-  .lang-switcher {
-    top: 10px;
-    right: 12px;
   }
 
   .job-header,

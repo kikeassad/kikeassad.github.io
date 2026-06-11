@@ -17,12 +17,6 @@
   </head>
   <body>
 
-    <!-- Language switcher — always visible, fixed top-right -->
-    <div class="lang-switcher">
-      <button onclick="changeLanguage('en')" id="btn-en" class="lang-btn active">EN</button>
-      <button onclick="changeLanguage('sp')" id="btn-sp" class="lang-btn">ES</button>
-    </div>
-
     <!-- Layout wrapper -->
     <div class="layout">
 
@@ -38,9 +32,15 @@
 
         <!-- Top navigation tabs — clicking a tab shows only that section -->
         <nav class="topnav" role="tablist">
-          <button id="tab-experience" class="tab-btn active" data-tab="experience" data-i18n="experience" role="tab" aria-selected="true" aria-controls="experience">Experience</button>
-          <button id="tab-studies"    class="tab-btn"        data-tab="studies"    data-i18n="studies"    role="tab" aria-selected="false" aria-controls="studies">Studies</button>
-          <button id="tab-projects"   class="tab-btn"        data-tab="projects"   data-i18n="projects"   role="tab" aria-selected="false" aria-controls="projects">Projects</button>
+          <div class="tab-buttons">
+            <button id="tab-experience" class="tab-btn active" data-tab="experience" data-i18n="experience" role="tab" aria-selected="true" aria-controls="experience">Experience</button>
+            <button id="tab-studies"    class="tab-btn"        data-tab="studies"    data-i18n="studies"    role="tab" aria-selected="false" aria-controls="studies">Studies</button>
+            <button id="tab-projects"   class="tab-btn"        data-tab="projects"   data-i18n="projects"   role="tab" aria-selected="false" aria-controls="projects">Projects</button>
+          </div>
+          <div class="lang-switcher">
+            <button onclick="changeLanguage('en')" id="btn-en" class="lang-btn active">EN</button>
+            <button onclick="changeLanguage('sp')" id="btn-sp" class="lang-btn">ES</button>
+          </div>
         </nav>
 
         <!-- Scrollable panel area — only this div scrolls, not the whole page.
@@ -63,15 +63,15 @@
           </section>
         </div>
 
+        <!-- Footer fragment mount point -->
+        <footer id="footer">
+          <div style="padding: 20px; text-align: center; color: var(--navy); font-family: 'Space Mono', monospace; font-size: 0.8rem; opacity: 0.7;">
+            Loading footer...
+          </div>
+        </footer>
+
       </main>
     </div>
-
-    <!-- Footer fragment mount point -->
-    <footer id="footer">
-      <div style="padding: 20px; text-align: center; color: var(--navy); font-family: 'Space Mono', monospace; font-size: 0.8rem; opacity: 0.7;">
-        Loading footer...
-      </div>
-    </footer>
 
     <script type="module" src="/scripts/loader.js"></script>
   </body>
