@@ -553,18 +553,126 @@ body {
   /* On mobile, stack the sidebar above the main content */
   .layout {
     flex-direction: column;
+    min-height: auto;
   }
 
   .sidenav {
     width: 100%;
     min-width: unset;
-    min-height: unset;
+    min-height: auto;
     position: static;
-    max-height: unset;
+    max-height: none;
+    box-shadow: 0 4px 12px var(--shadow);
   }
 
+  .sidenav-header {
+    background: none;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 24px 20px 16px;
+    gap: 16px;
+  }
+
+  .sidenav-header img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid var(--pale);
+    max-height: none;
+    margin: 0;
+  }
+
+  .sidenav-header h2 {
+    font-size: 1.15rem;
+    padding: 0;
+    margin-bottom: 2px;
+  }
+
+  .sidenav-title {
+    padding: 0;
+    font-size: 0.8rem;
+  }
+
+  /* Contact section layout */
+  .sidenav-section:nth-of-type(1) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    padding: 16px 20px;
+  }
+
+  .sidenav-section:nth-of-type(1) p {
+    margin-bottom: 0;
+  }
+
+  /* Skills & Languages layout */
+  .sidenav-section:nth-of-type(2),
+  .sidenav-section:nth-of-type(3) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 16px 20px;
+  }
+
+  .sidenav-section:nth-of-type(2) h3,
+  .sidenav-section:nth-of-type(3) h3 {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .sidenav-section:nth-of-type(2) .skill-label,
+  .sidenav-section:nth-of-type(3) .skill-label {
+    background-color: rgba(131, 180, 255, 0.12);
+    color: var(--light-blue) !important;
+    border: 1px solid rgba(131, 180, 255, 0.25);
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem !important;
+    margin: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .sidenav-section:nth-of-type(2) .skillContainer,
+  .sidenav-section:nth-of-type(3) .skillContainer {
+    display: none;
+  }
+
+  /* Main content area overrides */
   .main {
-    padding: 0 16px 32px;
+    height: auto;
+    max-height: none;
+    position: static;
+    padding: 0;
+  }
+
+  .panels {
+    height: auto;
+    overflow-y: visible;
+    padding: 24px 20px 40px;
+  }
+
+  /* Sticky top navigation bar */
+  .topnav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(238, 241, 247, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    padding: 12px 20px 0;
+    box-shadow: 0 4px 12px rgba(26, 33, 48, 0.08);
+  }
+
+  .tab-btn {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+
+  .lang-switcher {
+    margin-bottom: 6px;
   }
 
   .job-header,
