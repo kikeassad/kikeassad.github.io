@@ -1,11 +1,16 @@
 /* ─── Reset & Base ──────────────────────────────────────────────────────────── */
-* {
+*, ::before, ::after {
   box-sizing: border-box;
+}
+
+body, h1, h2, h3, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
   margin: 0;
   padding: 0;
 }
 
 :root {
+  color-scheme: light dark;
+
   --navy:      #1a2130;
   --blue:      #5a72a0;
   --light-blue:#83b4ff;
@@ -14,58 +19,98 @@
   --bg:        #eef1f7;
   --white:     #ffffff;
   --shadow:    rgba(26, 33, 48, 0.12);
+
+  /* Light/Dark dynamic color tokens */
+  --bg-primary: light-dark(#eef1f7, #0d121a);
+  --bg-gradient: light-dark(
+    radial-gradient(circle at 10% 20%, rgba(240, 245, 255, 1) 0%, rgba(228, 235, 248, 1) 90%),
+    radial-gradient(circle at 10% 20%, rgba(13, 18, 26, 1) 0%, rgba(20, 26, 36, 1) 90%)
+  );
+  --panel-bg: light-dark(rgba(255, 255, 255, 0.75), rgba(26, 33, 48, 0.6));
+  --sidenav-bg: light-dark(rgba(26, 33, 48, 0.88), rgba(15, 20, 24, 0.95));
+  --card-bg: light-dark(rgba(255, 255, 255, 0.9), rgba(26, 33, 48, 0.85));
+
+  --text-main: light-dark(var(--navy), #f1f5f9);
+  --text-pale: light-dark(var(--pale), #e2e8f0);
+  --text-blue: light-dark(var(--blue), #83b4ff);
+  --text-mid: light-dark(var(--mid-blue), #94a3b8);
+  --border-color: light-dark(rgba(90, 114, 160, 0.12), rgba(131, 180, 255, 0.15));
+
+  --shadow-color: light-dark(rgba(26, 33, 48, 0.06), rgba(0, 0, 0, 0.3));
+  --card-shadow: 
+    0 4px 6px -1px var(--shadow-color),
+    0 2px 4px -1px var(--shadow-color);
+  --card-shadow-hover: 
+    0 20px 25px -5px var(--shadow-color),
+    0 10px 10px -5px var(--shadow-color);
 }
 
 body {
-  font-family: "Lora", serif;
-  background-color: var(--bg);
-  color: var(--navy);
+  font-family: "Outfit", sans-serif;
+  background: var(--bg-gradient);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
   min-height: 100vh;
+  line-height: 1.5;
 }
 
 /* ─── Layout: sidebar + main ────────────────────────────────────────────────── */
-/* We use flexbox so the sidebar and main content sit side by side naturally.
-   The old code had `position: left` which is not valid CSS — this fixes it. */
 .layout {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   min-height: 100vh;
+  gap: 24px;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 40px 24px;
 }
 
 /* ─── Sidebar ────────────────────────────────────────────────────────────────── */
 .sidenav {
-  width: 280px;
-  min-width: 280px;
-  min-height: 100vh;
-  background-color: var(--navy);
-  color: var(--pale);
+  width: 300px;
+  min-width: 300px;
+  background-color: var(--sidenav-bg);
+  color: var(--text-pale);
   font-family: "Space Mono", monospace;
   position: sticky;     /* Stays visible as the user scrolls the main content */
-  top: 0;
+  top: 40px;
   overflow-y: auto;
-  max-height: 100vh;
-  box-shadow: 4px 0 20px var(--shadow);
+  height: calc(100vh - 80px);
+  max-height: calc(100vh - 80px);
+  box-shadow: var(--card-shadow-hover);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
   z-index: 10;
 }
 
 .sidenav-header {
-  background-color: var(--blue);
+  background: none;
   text-align: center;
-  padding-bottom: 20px;
+  padding: 32px 20px 20px;
 }
 
 .sidenav-header img {
-  width: 100%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
   display: block;
   object-fit: cover;
-  max-height: 220px;
+  border: 3px solid var(--light-blue);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sidenav-header img:hover {
+  transform: scale(1.06) rotate(2deg);
 }
 
 .sidenav-header h2 {
-  font-family: "Lora", serif;
-  font-size: 1rem;
-  color: var(--pale);
-  padding: 12px 16px 4px;
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #ffffff;
+  padding: 0 12px 4px;
   line-height: 1.3;
 }
 
@@ -74,12 +119,12 @@ body {
   font-size: 0.75rem;
   color: var(--light-blue);
   letter-spacing: 0.05em;
-  padding: 0 16px;
+  padding: 0 12px;
 }
 
 .sidenav-section {
-  padding: 16px 20px;
-  border-bottom: 1px solid rgba(131, 180, 255, 0.15);
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(131, 180, 255, 0.12);
 }
 
 .sidenav-section h3 {
@@ -88,7 +133,7 @@ body {
   color: var(--light-blue);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .sidenav-section h3 i {
@@ -97,8 +142,8 @@ body {
 
 .sidenav-section p {
   font-size: 0.82rem;
-  color: var(--pale);
-  margin-bottom: 8px;
+  color: var(--text-pale);
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -113,9 +158,9 @@ body {
 }
 
 .sidenav-section a {
-  color: var(--pale);
+  color: var(--text-pale);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.2s, opacity 0.2s;
 }
 
 .sidenav-section a:hover {
@@ -125,7 +170,7 @@ body {
 /* Skill bars */
 .skill-label {
   font-size: 0.78rem !important;
-  margin-bottom: 3px !important;
+  margin-bottom: 4px !important;
   color: #c8d8f0 !important;
 }
 
@@ -133,7 +178,7 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   height: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .skill {
@@ -172,20 +217,22 @@ body {
 
 
 /* ─── Main content area ──────────────────────────────────────────────────────── */
-/* flex: 1 fills remaining width. We also make .main a flex column and give it
-   100vh height so we can split it into two rows: a pinned topnav at the top
-   and a scrollable panel area below. Without this structure, the topnav would
-   scroll away with the content, defeating the purpose of the tab layout. */
 .main {
   flex: 1;
-  max-width: 900px;
+  max-width: 980px;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 80px);
   position: sticky;
-  top: 0;
+  top: 40px;
+  background-color: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: 0 20px 40px var(--shadow-color);
+  overflow: hidden;
 }
-
 
 /* ─── Top navigation tabs ────────────────────────────────────────────────────── */
 .topnav {
@@ -193,9 +240,9 @@ body {
   justify-content: space-between;
   align-items: flex-end;
   flex-shrink: 0;              /* Never compress — always full height */
-  padding: 16px 32px 0;
-  border-bottom: 2px solid var(--mid-blue);
-  background-color: var(--bg);
+  padding: 20px 32px 0;
+  border-bottom: 1px solid var(--border-color);
+  background-color: rgba(255, 255, 255, 0.02);
   z-index: 5;
 }
 
@@ -205,21 +252,38 @@ body {
 }
 
 /* ─── Scrollable panel area ─────────────────────────────────────────────────── */
-/* This wrapper sits below the topnav inside .main and takes all remaining height.
-   overflow-y:auto makes only THIS area scroll — not the whole page — which is
-   what keeps both the sidenav and the topnav pinned and always visible. */
 .panels {
   flex: 1;
   overflow-y: auto;
   padding: 32px 32px 40px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-blue) transparent;
 }
 
-/* We switched from <a> to <button> so keyboard users can Tab through the nav
-   and press Enter/Space to switch panels — much better accessibility. */
+/* Chrome, Edge, Safari scrollbar support */
+.panels::-webkit-scrollbar {
+  width: 8px;
+}
+
+.panels::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panels::-webkit-scrollbar-thumb {
+  background-color: var(--text-mid);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.panels::-webkit-scrollbar-thumb:hover {
+  background-color: var(--text-blue);
+}
+
 .tab-btn {
   font-family: "Space Mono", monospace;
   font-size: 0.8rem;
-  color: var(--navy);
+  color: var(--text-main);
   background: none;
   border: none;
   border-bottom: 2px solid transparent;      /* Reserve space so layout doesn't shift */
@@ -232,22 +296,29 @@ body {
 }
 
 .tab-btn:hover {
-  color: var(--blue);
+  color: var(--text-blue);
 }
 
-/* The active tab gets an underline that sits flush with the nav border,
-   creating the classic "selected tab" illusion */
+/* The active tab gets an underline that sits flush with the nav border */
 .tab-btn.active {
-  color: var(--blue);
+  color: var(--text-blue);
   border-bottom-color: var(--light-blue);
   font-weight: 700;
 }
 
 
 /* ─── Tab panel visibility ───────────────────────────────────────────────────── */
-/* All panels are hidden by default. Only the one that receives .tab-active
-   is shown. This is intentionally the simplest possible toggle — no animation
-   yet, which keeps the logic easy to reason about. */
+@keyframes tabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .content-section {
   display: none;
   margin-bottom: 48px;
@@ -255,6 +326,7 @@ body {
 
 .content-section.tab-active {
   display: block;
+  animation: tabFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 
@@ -264,7 +336,7 @@ body {
 }
 
 .section-inner {
-  /* The fragment is injected here — this wrapper gives it consistent padding */
+  /* Container padding */
 }
 
 .section-title {
@@ -272,11 +344,12 @@ body {
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--blue);
+  color: var(--text-blue);
   border-left: 4px solid var(--light-blue);
   padding-left: 12px;
   margin-bottom: 20px;
   margin-top: 32px;
+  text-wrap: balance;
 }
 
 .section-title:first-child {
@@ -286,18 +359,22 @@ body {
 
 /* ─── Job cards ──────────────────────────────────────────────────────────────── */
 .job-card {
-  background-color: var(--white);
-  border-radius: 8px;
-  padding: 20px 24px;
-  margin-bottom: 16px;
-  border-left: 3px solid var(--light-blue);
-  box-shadow: 0 2px 8px var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--light-blue);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-left-color 0.35s ease;
 }
 
 .job-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px var(--shadow);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--card-shadow-hover);
+  border-left-color: var(--text-blue);
 }
 
 .job-header {
@@ -306,33 +383,34 @@ body {
   align-items: baseline;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .job-company {
   font-family: "Space Mono", monospace;
   font-size: 0.95rem;
-  color: var(--navy);
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 .job-dates {
   font-family: "Space Mono", monospace;
   font-size: 0.72rem;
-  color: var(--mid-blue);
+  color: var(--text-mid);
   white-space: nowrap;
 }
 
 .job-position {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--blue);
-  margin-bottom: 4px;
+  color: var(--text-blue);
+  margin-bottom: 6px;
 }
 
 .job-location {
   font-size: 0.8rem;
-  color: var(--mid-blue);
-  margin-bottom: 10px;
+  color: var(--text-mid);
+  margin-bottom: 12px;
 }
 
 .job-location i {
@@ -341,24 +419,35 @@ body {
 
 .job-description {
   padding-left: 18px;
-  color: var(--navy);
+  color: var(--text-main);
   font-size: 0.88rem;
   line-height: 1.75;
+  text-wrap: pretty;
 }
 
 .job-description li {
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 
 /* ─── Education cards ────────────────────────────────────────────────────────── */
 .edu-card {
-  background-color: var(--white);
-  border-radius: 8px;
-  padding: 20px 24px;
-  margin-bottom: 16px;
-  border-left: 3px solid var(--blue);
-  box-shadow: 0 2px 8px var(--shadow);
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--text-blue);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-left-color 0.35s ease;
+}
+
+.edu-card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--card-shadow-hover);
+  border-left-color: var(--light-blue);
 }
 
 .edu-header {
@@ -367,54 +456,65 @@ body {
   align-items: baseline;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .edu-institution {
   font-family: "Space Mono", monospace;
   font-size: 0.95rem;
-  color: var(--navy);
+  color: var(--text-main);
+  font-weight: 700;
 }
 
 .edu-dates {
   font-family: "Space Mono", monospace;
   font-size: 0.72rem;
-  color: var(--mid-blue);
+  color: var(--text-mid);
 }
 
 .edu-degree {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--blue);
-  margin-bottom: 4px;
+  color: var(--text-blue);
+  margin-bottom: 6px;
 }
 
 .edu-department {
   font-size: 0.82rem;
-  color: var(--mid-blue);
-  margin-bottom: 4px;
+  color: var(--text-mid);
+  margin-bottom: 6px;
 }
 
 .edu-gpa {
   font-family: "Space Mono", monospace;
   font-size: 0.78rem;
-  color: var(--navy);
-  background: var(--bg);
+  color: var(--text-main);
+  background: rgba(90, 114, 160, 0.1);
   display: inline-block;
   padding: 2px 8px;
   border-radius: 4px;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
 
 /* ─── Certification cards ────────────────────────────────────────────────────── */
 .cert-card {
-  background-color: var(--white);
-  border-radius: 8px;
-  padding: 16px 24px;
-  margin-bottom: 12px;
-  border-left: 3px solid #a8c8ff;
-  box-shadow: 0 2px 8px var(--shadow);
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid #a8c8ff;
+  box-shadow: var(--card-shadow);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-left-color 0.35s ease;
+}
+
+.cert-card:hover {
+  transform: translateY(-3px) scale(1.005);
+  box-shadow: var(--card-shadow-hover);
+  border-left-color: var(--text-blue);
 }
 
 .cert-header {
@@ -423,26 +523,27 @@ body {
   align-items: baseline;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
 .cert-name {
   font-size: 0.9rem;
-  font-family: "Lora", serif;
-  color: var(--navy);
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
 .cert-date {
   font-family: "Space Mono", monospace;
   font-size: 0.72rem;
-  color: var(--mid-blue);
+  color: var(--text-mid);
   white-space: nowrap;
 }
 
 .cert-issuer {
   font-size: 0.82rem;
-  color: var(--blue);
-  margin-bottom: 6px;
+  color: var(--text-blue);
+  margin-bottom: 8px;
 }
 
 .cert-link {
@@ -457,45 +558,52 @@ body {
 }
 
 .cert-link:hover {
-  color: var(--blue);
+  color: var(--text-blue);
 }
 
 .cert-credential {
   font-family: "Space Mono", monospace;
   font-size: 0.75rem;
-  color: var(--mid-blue);
+  color: var(--text-mid);
 }
 
 
 /* ─── Project cards ──────────────────────────────────────────────────────────── */
 .project-card {
-  background-color: var(--white);
-  border-radius: 8px;
-  padding: 20px 24px;
-  margin-bottom: 16px;
-  border-left: 3px solid var(--mid-blue);
-  box-shadow: 0 2px 8px var(--shadow);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--text-mid);
+  box-shadow: var(--card-shadow);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              border-left-color 0.35s ease;
 }
 
 .project-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px var(--shadow);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: var(--card-shadow-hover);
+  border-left-color: var(--light-blue);
 }
 
 .project-title {
   font-family: "Space Mono", monospace;
   font-size: 0.85rem;
-  color: var(--navy);
-  margin-bottom: 10px;
+  color: var(--text-main);
+  margin-bottom: 12px;
   line-height: 1.5;
+  font-weight: 700;
 }
 
 .project-description {
   font-size: 0.88rem;
-  color: #3a4a60;
+  color: var(--text-main);
+  opacity: 0.9;
   line-height: 1.75;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  text-wrap: pretty;
 }
 
 .project-tags {
@@ -505,37 +613,38 @@ body {
 }
 
 .project-tag {
-  background-color: var(--bg);
-  color: var(--blue);
+  background-color: rgba(90, 114, 160, 0.1);
+  color: var(--text-blue);
   font-family: "Space Mono", monospace;
   font-size: 0.7rem;
-  padding: 3px 10px;
+  padding: 4px 12px;
   border-radius: 20px;
-  border: 1px solid var(--mid-blue);
+  border: 1px solid var(--border-color);
 }
 
 
 /* ─── Footer ─────────────────────────────────────────────────────────────────── */
+/* ─── Footer ─────────────────────────────────────────────────────────────────── */
 .footer {
   background-color: transparent;
-  color: var(--navy);
+  color: var(--text-main);
   text-align: center;
-  padding: 16px 20px;
+  padding: 24px 20px;
   flex-shrink: 0;
-  border-top: 1px solid rgba(90, 114, 160, 0.15);
+  border-top: 1px solid var(--border-color);
 }
 
 .footer p {
   font-family: "Space Mono", monospace;
   font-size: 0.75rem;
   margin-bottom: 8px;
-  color: var(--blue);
+  color: var(--text-blue);
   letter-spacing: 0.05em;
 }
 
 .footer a {
   font-size: 1.25rem;
-  color: var(--navy);
+  color: var(--text-main);
   margin: 0 10px;
   text-decoration: none;
   transition: color 0.2s, transform 0.2s;
@@ -554,6 +663,8 @@ body {
   .layout {
     flex-direction: column;
     min-height: auto;
+    padding: 0;
+    gap: 0;
   }
 
   .sidenav {
@@ -562,7 +673,10 @@ body {
     min-height: auto;
     position: static;
     max-height: none;
-    box-shadow: 0 4px 12px var(--shadow);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    border: none;
+    border-radius: 0;
+    height: auto;
   }
 
   .sidenav-header {
@@ -578,9 +692,13 @@ body {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border: 2px solid var(--pale);
+    border: 2px solid var(--light-blue);
     max-height: none;
     margin: 0;
+  }
+
+  .sidenav-header img:hover {
+    transform: none;
   }
 
   .sidenav-header h2 {
@@ -645,6 +763,12 @@ body {
     height: auto;
     max-height: none;
     position: static;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     padding: 0;
   }
 
@@ -658,12 +782,13 @@ body {
   .topnav {
     position: sticky;
     top: 0;
-    background-color: rgba(238, 241, 247, 0.95);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background-color: light-dark(rgba(238, 241, 247, 0.95), rgba(13, 18, 26, 0.95));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     z-index: 100;
     padding: 12px 20px 0;
-    box-shadow: 0 4px 12px rgba(26, 33, 48, 0.08);
+    box-shadow: 0 4px 12px var(--shadow-color);
+    border-bottom: 1px solid var(--border-color);
   }
 
   .tab-btn {
